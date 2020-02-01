@@ -1,7 +1,7 @@
 {
-  "name": "mern-boilerplate",
-  "version": "0.5.4",
-  "description": "A full MERN stack boilerplate",
+  "name": "staffwiz",
+  "version": "0.0.0",
+  "description": "A full staffing solution",
   "main": "server/index.js",
   "scripts": {
     "build": "./scripts/build-prod",
@@ -20,16 +20,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/djizco/mern-boilerplate.git"
+    "url": "git+https://github.com/marinaaaat/staffwiz.git"
   },
   "author": {
-    "name": "Federico Rojas",
-    "email": "djizco@yahoo.com",
-    "url": "https://github.com/djizco"
+    "name": "Marina Tassi",
+    "email": "mtassi17@gmail.com",
+    "url": "https://github.com/marinaaaat"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/djizco/mern-boilerplate/issues"
+    "url": "https://github.com/marinaaaat/staffwiz/issues"
   },
   "keywords": [
     "react",
@@ -44,7 +44,7 @@
     "jest",
     "enzyme"
   ],
-  "homepage": "https://github.com/djizco/mern-boilerplate#readme",
+  "homepage": "https://github.com/marinaaaat/staffwiz#readme",
   "engines": {
     "node": ">=10.0.0"
   },

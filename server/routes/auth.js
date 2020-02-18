@@ -16,6 +16,7 @@ router.post('/register', (req, res) => {
 
   const { username } = req.body;
   const newUser = User(req.body);
+  newUser.isStaffing = true;
 
   User.find({ username }, (err, users) => {
     if (err) {

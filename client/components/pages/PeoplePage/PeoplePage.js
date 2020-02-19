@@ -6,8 +6,6 @@ import { Switch, Route } from 'react-router';
 import * as R from 'ramda';
 
 import PeopleSection from '_templates/PeopleSection';
-import AccountSettings from '_templates/AccountSettings';
-import SettingsMenu from '_organisms/SettingsMenu';
 
 export default function PeoplePage({ location }) {
   const dispatch = useDispatch();

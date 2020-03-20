@@ -7,4 +7,9 @@ export const postCheckUsername = username =>
     .then(handleSuccess)
     .catch(handleError);
 
+export const getAllUsers = () =>
+  request.get('/api/users/')
+    .then(handleSuccess)
+    .catch(handleError);
+
 export const placeholder = () => {};

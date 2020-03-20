@@ -7,11 +7,13 @@ import { faSync } from '@fortawesome/free-solid-svg-icons';
 
 import { validateName } from '_utils/validation';
 import { attemptGetUser, attemptUpdateUser } from '_thunks/user';
+import { attemptGetUsers } from '_thunks/users';
 import Box from '_molecules/Box';
 
 export default function PeopleDirectory() {
   const dispatch = useDispatch();
   const { user } = useSelector(R.pick(['user']));
+  const { allUsers } = useSelector(R.pick(['users']));
 
   const [firstName, setFirstName] = useState(user.firstName || '');
   const [lastName, setLastName] = useState(user.lastName || '');
@@ -31,7 +33,7 @@ export default function PeopleDirectory() {
     resetState();
   }, [user.firstName, user.lastName, user.bio, user.profilePic]);
 
-  const refresh = () => dispatch(attemptGetUser())
+  const refresh = () => dispatch(attemptGetUsers())
     .then(resetState)
     .catch(R.identity);
 

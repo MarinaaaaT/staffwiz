@@ -5,39 +5,44 @@ import * as R from 'ramda';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSync } from '@fortawesome/free-solid-svg-icons';
 
-import { validateName } from '_utils/validation';
-import { attemptGetUser, attemptUpdateUser } from '_thunks/user';
 import { attemptGetUsers } from '_thunks/users';
 import Box from '_molecules/Box';
 
 export default function PeopleDirectory() {
   const dispatch = useDispatch();
   const { user } = useSelector(R.pick(['user']));
-  const { allUsers } = useSelector(R.pick(['users']));
 
-  const [firstName, setFirstName] = useState(user.firstName || '');
+  let { users } = useSelector(R.pick(['users']));
+
+  const [firstName, setFirstName] = useState(user.firstName || 'start');
   const [lastName, setLastName] = useState(user.lastName || '');
   const [bio, setBio] = useState(user.bio || '');
   const [profilePic, setProfilePic] = useState(user.profilePic || '');
 
-  let users = [user, user];
-
   const resetState = () => {
-    setFirstName(user.firstName || '');
+    setFirstName(user.firstName || 'TEST');
     setLastName(user.lastName || '');
     setBio(user.bio || '');
     setProfilePic(user.profilePic || '');
   };
 
-  useEffect(() => {
-    resetState();
-  }, [user.firstName, user.lastName, user.bio, user.profilePic]);
+  const setUserList = () => {
+    users = useSelector(R.pick(['users']));
+  };
 
-  const refresh = () => dispatch(attemptGetUsers())
-    .then(resetState)
-    .catch(R.identity);
+  useEffect(() => {
+    dispatch(attemptGetUsers())
+      .then(resetState)
+      .catch(R.identity);
+    resetState();
+  }, []);
+
+  const refresh = () => {
+    console.log(userList + " REFRESH");
+  };
 
   return (
+    console.log(users),
     <Box className="general-profile">
       <span className="icon is-medium is-pulled-right" onClick={refresh} onKeyPress={refresh}>
         <FontAwesomeIcon icon={faSync} size="lg" />
@@ -57,7 +62,7 @@ export default function PeopleDirectory() {
             />
           </figure>
           <p>
-            Name: {users[1].firstName} {user.lastName}
+            Name: {firstName} {user.lastName}
           </p>
           <p>
             Department: Product Management

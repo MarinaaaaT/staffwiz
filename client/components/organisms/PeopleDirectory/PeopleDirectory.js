@@ -11,23 +11,14 @@ import UserResult from '../../molecules/UserResult';
 
 export default function PeopleDirectory() {
   const dispatch = useDispatch();
-  const { user } = useSelector(R.pick(['user']));
 
   let { users } = useSelector(R.pick(['users']));
-
-  const [firstName, setFirstName] = useState(user.firstName || 'start');
-  const [lastName, setLastName] = useState(user.lastName || '');
-  const [bio, setBio] = useState(user.bio || '');
-  const [profilePic, setProfilePic] = useState(user.profilePic || '');
-  const [userList, setUserList] = useState([] || []);
+  const [staffList, setStaffList] = useState([] || []);
 
   const resetState = () => {
-    setFirstName(user.firstName || 'TEST');
-    setLastName(user.lastName || '');
-    setBio(user.bio || '');
-    setProfilePic(user.profilePic || '');
     console.log("RESET");
   };
+
 
   useEffect(() => {
     dispatch(attemptGetUsers())
@@ -39,11 +30,8 @@ export default function PeopleDirectory() {
 
   const refresh = () => {
     console.log("REFRESH");
-    
-    //create array ^ with users to set userList equal to below
-    setUserList([users[0], users[1], users[2]]|| []);
-    setFirstName(users[0].firstName || 'TEST');
-    setLastName(users[0].lastName || '');
+    const mapUsersToStaff = Object.keys(users).map(u => users[u]) ?? []
+    setStaffList(mapUsersToStaff);
   };
 
   return (
@@ -59,7 +47,7 @@ export default function PeopleDirectory() {
       <h3 className="title is-3"> All People </h3>
       <div className="columns">
         <ul>
-          {userList.map(userX => <UserResult firstName = {userX.firstName} lastName = {userX.lastName} profilePic = {user.profilePic}/>)} 
+          {staffList.map(userX => <UserResult firstName = {userX.firstName} lastName = {userX.lastName} profilePic = {userX.profilePic}/>)} 
         </ul>
       </div>
     </Box>

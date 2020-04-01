@@ -19,7 +19,7 @@ export default function PeopleDirectory() {
   const [lastName, setLastName] = useState(user.lastName || '');
   const [bio, setBio] = useState(user.bio || '');
   const [profilePic, setProfilePic] = useState(user.profilePic || '');
-  let userList = [user, user];
+  const [userList, setUserList] = useState([] || []);
 
   const resetState = () => {
     setFirstName(user.firstName || 'TEST');
@@ -39,17 +39,15 @@ export default function PeopleDirectory() {
 
   const refresh = () => {
     console.log("REFRESH");
-    console.log(users[0]);
-    //figure out how to fill this userList with users
-    userList = [user, user, user];
+    
+    //create array ^ with users to set userList equal to below
+    setUserList([users[0], users[1], users[2]]|| []);
     setFirstName(users[0].firstName || 'TEST');
     setLastName(users[0].lastName || '');
   };
 
   return (
-    console.log(users),
-    console.log("USER LIST BELOW"),
-    console.log(userList),
+    console.log("VIEW RENDERED"),
     <Box className="general-profile">
       <span className="icon is-medium is-pulled-right" onClick={refresh} onKeyPress={refresh}>
         <FontAwesomeIcon icon={faSync} size="lg" />

@@ -42,6 +42,7 @@ const FaviconsWebpackPluginConfig = new FaviconsWebpackPlugin({
 
 const CleanWebpackPluginConfig = new CleanWebpackPlugin({
   verbose: true,
+  cleanStaleWebpackAssets: false,
 });
 
 module.exports = {
@@ -84,7 +85,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+        use: ['style-loader', MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
         test: /\.scss$/i,
@@ -134,10 +135,10 @@ module.exports = {
     ],
   },
   plugins: [
-    HtmlWebpackPluginConfig,
+    CleanWebpackPluginConfig,
     MiniCssExtractPluginConfig,
     FaviconsWebpackPluginConfig,
-    CleanWebpackPluginConfig,
+    HtmlWebpackPluginConfig,
   ],
   performance: {
     hints: false,

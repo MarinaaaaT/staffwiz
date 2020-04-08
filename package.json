@@ -88,11 +88,12 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "regenerator-runtime": "^0.13.5",
+    "rxjs": "^6.5.5",
     "seamless-immutable": "^7.1.4",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "uuid": "^3.3.3",
     "webpack": "^4.41.0",
-    "webpack-bundle-analyzer": "^3.5.2"
+    "webpack-bundle-analyzer": "^3.6.1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

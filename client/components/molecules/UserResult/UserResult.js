@@ -5,7 +5,7 @@ import classNames from 'classnames';
 export default function UserResult({ firstName, lastName, profilePic }) {
 
   return (
-    <div className="column is-2">
+    <div className="user-result">
       <figure className="image">
         <img
           className="profile-img"

@@ -45,10 +45,8 @@ export default function PeopleDirectory() {
       </h3 >
       <hr className="separator" />
       <h3 className="title is-3"> All People </h3>
-      <div className="columns">
-        <ul>
+      <div className="columns" id="people-list">
           {staffList.map(userX => <UserResult firstName = {userX.firstName} lastName = {userX.lastName} profilePic = {userX.profilePic}/>)} 
-        </ul>
       </div>
     </Box>
   );

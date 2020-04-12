@@ -9,11 +9,8 @@ import { attemptGetUsers } from '_thunks/users';
 import Box from '_molecules/Box';
 import UserResult from '../../molecules/UserResult';
 
-export default function PeopleDirectory() {
+export default function PeopleDirectory({staffList, updateUsers}) {
   const dispatch = useDispatch();
-
-  let { users } = useSelector(R.pick(['users']));
-  const [staffList, setStaffList] = useState([] || []);
 
   const resetState = () => {
     console.log("RESET");
@@ -30,14 +27,15 @@ export default function PeopleDirectory() {
 
   const refresh = () => {
     console.log("REFRESH");
-    const mapUsersToStaff = Object.keys(users).map(u => users[u]) ?? []
-    setStaffList(mapUsersToStaff);
+    dispatch(attemptGetUsers())
+      .then()
+      .catch(R.identity);
   };
 
   return (
     console.log("VIEW RENDERED"),
     <Box className="general-profile">
-      <span className="icon is-medium is-pulled-right" onClick={refresh} onKeyPress={refresh}>
+      <span className="icon is-medium is-pulled-right" onClick={updateUsers} onKeyPress={refresh}>
         <FontAwesomeIcon icon={faSync} size="lg" />
       </span>
       <h3 className="title is-3">

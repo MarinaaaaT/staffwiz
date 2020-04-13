@@ -1,4 +1,4 @@
-import PeopleDirectory from './PeopleDirectory';
+import StaffDirectory from './StaffDirectory';
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => {
@@ -19,4 +19,4 @@ const mapStateToProps = state => {
   export default connect(
     mapStateToProps,
     mapDispatchToProps
-  )(PeopleDirectory)
+  )(StaffDirectory)

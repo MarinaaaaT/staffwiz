@@ -9,7 +9,7 @@ import { attemptGetUsers } from '_thunks/users';
 import Box from '_molecules/Box';
 import UserResult from '../../molecules/UserResult';
 
-export default function PeopleDirectory({staffList, updateUsers}) {
+export default function StaffDirectory({staffList, updateUsers}) {
   const dispatch = useDispatch();
 
   const resetState = () => {
@@ -39,11 +39,11 @@ export default function PeopleDirectory({staffList, updateUsers}) {
         <FontAwesomeIcon icon={faSync} size="lg" />
       </span>
       <h3 className="title is-3">
-        People Directory
+        Staff Directory
       </h3 >
       <hr className="separator" />
-      <h3 className="title is-3"> All People </h3>
-      <div className="columns" id="people-list">
+      <h3 className="title is-3"> All Staff </h3>
+      <div className="columns" id="staff-list">
           {staffList.map(userX => <UserResult firstName = {userX.firstName} lastName = {userX.lastName} profilePic = {userX.profilePic}/>)} 
       </div>
     </Box>

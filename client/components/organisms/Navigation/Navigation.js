@@ -34,9 +34,9 @@ export default function Navigation({ pathname }) {
     ? pathname === '/settings'
     : R.slice(0, 10, pathname) === '/settings/';
 
-  const isPeople = (pathname.length === 10)
-    ? pathname === '/people'
-    : R.slice(0, 11, pathname) === '/people/';
+  const isStaff = (pathname.length === 10)
+    ? pathname === '/staff'
+    : R.slice(0, 11, pathname) === '/staff/';
 
   const homeItemClasses = classNames({
     'navbar-item': true,
@@ -59,11 +59,11 @@ export default function Navigation({ pathname }) {
     'is-active': isSettings,
   });
 
-  const peopleItemClasses = classNames({
+  const staffItemClasses = classNames({
     'navbar-item': true,
     'is-tab': true,
     'is-hidden-mobile': true,
-    'is-active': isPeople,
+    'is-active': isStaff,
   });
 
   return (
@@ -122,9 +122,9 @@ export default function Navigation({ pathname }) {
                   Settings
                 </h6>
               </Link>
-              <Link to="/people" className={peopleItemClasses}>
+              <Link to="/staff" className={staffItemClasses}>
                 <h6 className="title is-6">
-                  People
+                  Staff
                 </h6>
               </Link>
             </div>

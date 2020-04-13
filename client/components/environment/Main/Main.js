@@ -13,7 +13,7 @@ import RegisterPage from '_pages/RegisterPage';
 import HomePage from '_pages/HomePage';
 import TodoPage from '_pages/TodoPage';
 import SettingsPage from '_pages/SettingsPage';
-import PeoplePage from '_pages/PeoplePage'
+import StaffPage from '_pages/StaffPage'
 import LostPage from '_pages/LostPage';
 
 import Navigation from '_organisms/Navigation';
@@ -46,7 +46,7 @@ export default function Main({ location }) {
           <Route path="/home" component={HomePage} />
           <Route path="/todo" component={TodoPage} />
           <Route path="/settings" component={SettingsPage} />
-          <Route path="/people" component={PeoplePage} />
+          <Route path="/staff" component={StaffPage} />
           <Route path="*" component={LostPage} />
         </Switch>
       </div>

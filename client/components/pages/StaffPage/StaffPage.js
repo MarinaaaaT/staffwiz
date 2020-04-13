@@ -5,9 +5,9 @@ import { push } from 'connected-react-router';
 import { Switch, Route } from 'react-router';
 import * as R from 'ramda';
 
-import PeopleSection from '_templates/PeopleSection';
+import StaffSection from '_templates/StaffSection';
 
-export default function PeoplePage({ location }) {
+export default function StaffPage({ location }) {
   const dispatch = useDispatch();
   const { user } = useSelector(R.pick(['user']));
 
@@ -18,13 +18,13 @@ export default function PeoplePage({ location }) {
   }, []);
 
   return (
-    <div className="people-page page">
+    <div className="staff-page page">
       <div className="section">
         <div className="container">
           <div className="columns">
             <div className="column">
               <Switch>
-                <Route path="*" component={PeopleSection} />
+                <Route path="*" component={StaffSection} />
               </Switch>
             </div>
           </div>
@@ -34,7 +34,7 @@ export default function PeoplePage({ location }) {
   );
 }
 
-PeoplePage.propTypes = {
+StaffPage.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
   }).isRequired,

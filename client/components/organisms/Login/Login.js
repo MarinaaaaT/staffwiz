@@ -53,10 +53,6 @@ export default function Login() {
       </h3>
       <hr className="separator" />
       <p className="has-space-below">
-        Not Registered Yet?&nbsp;
-        <Link to="/register">
-          Create an account.
-        </Link>
       </p>
 
       <FormInput

@@ -4,6 +4,8 @@ import * as R from 'ramda';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSync } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { push } from 'connected-react-router';
 
 import { attemptGetUsers } from '_thunks/users';
 import Box from '_molecules/Box';
@@ -32,11 +34,18 @@ export default function StaffDirectory({staffList, updateUsers}) {
       .catch(R.identity);
   };
 
+  const addNewStaff = () => {
+    dispatch(push('/staff/newstaff'));
+  }
+
   return (
     console.log("VIEW RENDERED"),
     <Box className="general-profile">
-      <span className="icon is-medium is-pulled-right" onClick={updateUsers} onKeyPress={refresh}>
+      <span className="icon is-medium is-pulled-right" onClick={refresh} onKeyPress={refresh}>
         <FontAwesomeIcon icon={faSync} size="lg" />
+      </span>
+      <span className="icon is-medium is-pulled-right" onClick={addNewStaff} onKeyPress={addNewStaff}>
+        <FontAwesomeIcon icon={faPlus} size="lg" />
       </span>
       <h3 className="title is-3">
         Staff Directory

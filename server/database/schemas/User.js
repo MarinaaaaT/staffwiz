@@ -16,7 +16,7 @@ const userSchema = new Schema({
   bio: { type: String, maxlength: 240 },
   created_at: { type: Date, default: Date.now, immutable: true },
   updated_at: { type: Date },
-  level: {type: String, enum: ['Clevel', 'Lead', 'Director', 'Senior', 'Midlevel', 'Junior'] },
+  level: {type: String },
   department: {type: String },
   availability: {type: Number, max: 100, min: 0 },
   leftover_Availability: {type: Number, max: 100 },

@@ -8,6 +8,7 @@ import useKeyPress from '_hooks/useKeyPress';
 import { postCheckUsername } from '_api/users';
 import { validateUsername, validatePassword } from '_utils/validation';
 import { attemptRegister } from '_thunks/auth';
+import { attemptAddNewStaff } from '_thunks/users';
 
 import Box from '_molecules/Box';
 import Button from '_atoms/Button';
@@ -19,10 +20,12 @@ export default function Register() {
   const [usernameMessage, setUsernameMessage] = useState('');
   const [password, setPassword] = useState('');
   const [passwordMessage, setPasswordMessage] = useState('');
-  const [role, setRole] = useState('');
-  const [roleMessage, setRoleMessage] = useState('');
+  const [department, setDepartment] = useState('');
+  const [level, setLevel] = useState('');
   const [usernameAvailable, setUsernameAvailable] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
+  const [first_name, setFirstName] = useState('');
+  const [last_name, setLastName] = useState('');
 
   const checkPassword = (newUsername, newPassword) => {
     const { valid, message } = validatePassword(newUsername, newPassword);
@@ -65,9 +68,20 @@ export default function Register() {
     checkPassword(username, e.target.value);
   };
 
-  const handleRoleChange = e => {
-    setRole(e.target.value);
-    checkRole(e.target.value);
+  const handleDepartmentChange = e => {
+    setDepartment(e.target.value);
+  };
+
+  const handleLevelChange = e => {
+    setLevel(e.target.value);
+  };
+
+  const handleFirstNameChange = e => {
+    setFirstName(e.target.value);
+  };
+
+  const handleLastNameChange = e => {
+    setLastName(e.target.value);
   };
 
   const register = () => {
@@ -78,6 +92,22 @@ export default function Register() {
       };
 
       dispatch(attemptRegister(newUser))
+        .catch(R.identity);
+    }
+  };
+
+  const addNewStaff = () => {
+    if (usernameAvailable && passwordValid) {
+      const newUser = {
+        username,
+        password,
+        department, 
+        level,
+        last_name,
+        first_name,
+      };
+
+      dispatch(attemptAddNewStaff(newUser))
         .catch(R.identity);
     }
   };
@@ -156,6 +186,41 @@ export default function Register() {
       </div>
 
       <div className="field">
+        <label htmlFor="first_name" className="label">
+          First Name
+        </label>
+        <p className="control has-icons-right">
+          <input
+            id="first_name"
+            className={usernameInputClasses}
+            placeholder="First Name"
+            type="first_name"
+            value={first_name}
+            onChange={handleFirstNameChange}
+          />
+          <span className="icon is-small is-right">
+            <i className={usernameIconClasses} />
+          </span>
+        </p>
+      </div>
+
+      <div className="field">
+        <label htmlFor="last_name" className="label">
+          Last Name
+        </label>
+        <p className="control has-icons-right">
+          <input
+            id="last_name"
+            className={usernameInputClasses}
+            placeholder="Last Name"
+            type="last_name"
+            value={last_name}
+            onChange={handleLastNameChange}
+          />
+        </p>
+      </div>
+
+      <div className="field">
         <label htmlFor="password" className="label">
           Password
         </label>
@@ -180,16 +245,31 @@ export default function Register() {
       </div>
 
       <div className="field">
-        <label htmlFor="username" className="label">
-          Role
+        <label htmlFor="department" className="label">
+          Department
         </label>
         <p className="control has-icons-right">
-          <select id="role" name="role">
+          <select id="department" name="department" onChange = {handleDepartmentChange}>
             <option value="Product Manager">Product Manager</option>
             <option value="Business Analyst">Business Analyst</option>
             <option value="Developer">Developer</option>
             <option value="Quality Analyst">Quality Analyst</option>
             <option value="Account Manager">Account Manager</option>
+          </select>
+        </p>
+      </div>
+
+      <div className="field">
+        <label htmlFor="level" className="label">
+          Level
+        </label>
+        <p className="control has-icons-right">
+          <select id="level" name="level" onChange = {handleLevelChange}>
+            <option value="Junior">Junior</option>
+            <option value="Mid Level">Mid Level</option>
+            <option value="Senior">Senior</option>
+            <option value="Director">Director</option>
+            <option value="Lead">Lead</option>
           </select>
         </p>
       </div>
@@ -200,7 +280,7 @@ export default function Register() {
         <Button
           type="success"
           disabled={!passwordValid || !usernameAvailable}
-          onClick={register}
+          onClick={addNewStaff}
           label="Create Account"
         />
       </div>

@@ -15,7 +15,7 @@ export default function StaffDirectory({staffList, updateUsers}) {
   const dispatch = useDispatch();
 
   const resetState = () => {
-    console.log("RESET");
+    console.log("RESET ON STAFF DIRECTORY");
   };
 
 
@@ -23,12 +23,10 @@ export default function StaffDirectory({staffList, updateUsers}) {
     dispatch(attemptGetUsers())
       .then()
       .catch(R.identity);
-    console.log("USE EFFECT");
     resetState();
   }, []);
 
   const refresh = () => {
-    console.log("REFRESH");
     dispatch(attemptGetUsers())
       .then()
       .catch(R.identity);
@@ -39,7 +37,6 @@ export default function StaffDirectory({staffList, updateUsers}) {
   }
 
   return (
-    console.log("VIEW RENDERED"),
     <Box className="general-profile">
       <span className="icon is-medium is-pulled-right" onClick={refresh} onKeyPress={refresh}>
         <FontAwesomeIcon icon={faSync} size="lg" />
@@ -53,7 +50,7 @@ export default function StaffDirectory({staffList, updateUsers}) {
       <hr className="separator" />
       <h3 className="title is-3"> All Staff </h3>
       <div className="columns" id="staff-list">
-          {staffList.map(userX => <UserResult firstName = {userX.firstName} lastName = {userX.lastName} profilePic = {userX.profilePic}/>)} 
+          {staffList.map(userX => <UserResult firstName = {userX.firstName} lastName = {userX.lastName} profilePic = {userX.profilePic} level = {userX.level} department = {userX.department}/>)} 
       </div>
     </Box>
   );

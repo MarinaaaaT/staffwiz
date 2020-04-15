@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-export default function UserResult({ firstName, lastName, profilePic }) {
+export default function UserResult({ firstName, lastName, profilePic, level, department }) {
 
   return (
     <div className="user-result">
@@ -17,10 +17,10 @@ export default function UserResult({ firstName, lastName, profilePic }) {
         Name: {firstName} {lastName}
       </p>
       <p>
-        Department: Product Management
+        Department: {department}
       </p>
       <p>
-        Seniority: Senior
+        Seniority: {level}
       </p>
       <p>
         Project: Hibbett

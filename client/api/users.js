@@ -12,4 +12,10 @@ export const getAllUsers = () =>
     .then(handleSuccess)
     .catch(handleError);
 
+export const addNewStaff = user =>
+  request.post('/api/users/addNewStaff')
+    .send(user)
+    .then(handleSuccess)
+    .catch(handleError);
+
 export const placeholder = () => {};

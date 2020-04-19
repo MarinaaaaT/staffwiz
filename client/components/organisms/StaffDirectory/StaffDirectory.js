@@ -11,7 +11,7 @@ import { attemptGetUsers } from '_thunks/users';
 import Box from '_molecules/Box';
 import UserResult from '../../molecules/UserResult';
 
-export default function StaffDirectory({staffList, updateUsers}) {
+export default function StaffDirectory({staffList}) {
   const dispatch = useDispatch();
 
   const resetState = () => {
@@ -36,6 +36,8 @@ export default function StaffDirectory({staffList, updateUsers}) {
     dispatch(push('/staff/newstaff'));
   }
 
+  //TODO only feed user into user result and deal with it accordingly in User Result
+  
   return (
     <Box className="general-profile">
       <span className="icon is-medium is-pulled-right" onClick={refresh} onKeyPress={refresh}>
@@ -50,7 +52,7 @@ export default function StaffDirectory({staffList, updateUsers}) {
       <hr className="separator" />
       <h3 className="title is-3"> All Staff </h3>
       <div className="columns" id="staff-list">
-          {staffList.map(userX => <UserResult firstName = {userX.firstName} lastName = {userX.lastName} profilePic = {userX.profilePic} level = {userX.level} department = {userX.department}/>)} 
+          {staffList.map(userX => <UserResult firstName = {userX.firstName} lastName = {userX.lastName} profilePic = {userX.profilePic} level = {userX.level} department = {userX.department} user = {userX}/>)}
       </div>
     </Box>
   );

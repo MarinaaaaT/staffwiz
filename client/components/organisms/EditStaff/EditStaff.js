@@ -13,19 +13,20 @@ import { attemptAddNewStaff } from '_thunks/users';
 import Box from '_molecules/Box';
 import Button from '_atoms/Button';
 
-export default function AddStaff() {
+export default function EditStaff({staffMember}) {
   const dispatch = useDispatch();
 
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState(staffMember.username);
   const [usernameMessage, setUsernameMessage] = useState('');
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState();
   const [passwordMessage, setPasswordMessage] = useState('');
-  const [department, setDepartment] = useState('');
-  const [level, setLevel] = useState('');
+  const [department, setDepartment] = useState(staffMember.department);
+  const [level, setLevel] = useState(staffMember.level);
+  const [project, setProject] = useState(staffMember.project);
   const [usernameAvailable, setUsernameAvailable] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
-  const [first_name, setFirstName] = useState('');
-  const [last_name, setLastName] = useState('');
+  const [first_name, setFirstName] = useState(staffMember.firstName);
+  const [last_name, setLastName] = useState(staffMember.lastName);
 
   const checkPassword = (newUsername, newPassword) => {
     const { valid, message } = validatePassword(newUsername, newPassword);
@@ -74,6 +75,7 @@ export default function AddStaff() {
 
   const handleLevelChange = e => {
     setLevel(e.target.value);
+    console.log(userId);
   };
 
   const handleFirstNameChange = e => {
@@ -84,18 +86,12 @@ export default function AddStaff() {
     setLastName(e.target.value);
   };
 
-  const register = () => {
-    if (usernameAvailable && passwordValid) {
-      const newUser = {
-        username,
-        password,
-      };
-
-      dispatch(attemptRegister(newUser))
-        .catch(R.identity);
-    }
+  const handleProjectChange = e => {
+    setProject(e.target.value);
   };
 
+
+  //TODO MAKE THIS EDIT STAFF
   const addNewStaff = () => {
     if (usernameAvailable && passwordValid) {
       const newUser = {
@@ -111,8 +107,6 @@ export default function AddStaff() {
         .catch(R.identity);
     }
   };
-
-  useKeyPress('Enter', register);
 
   const usernameIconClasses = classNames({
     fa: true,
@@ -157,7 +151,7 @@ export default function AddStaff() {
   return (
     <Box className="register">
       <h3 className="title is-3">
-        Add New Staff Member
+        Edit Staff Member
       </h3>
       <hr className="separator" />
 
@@ -274,6 +268,19 @@ export default function AddStaff() {
         </p>
       </div>
 
+      <div className="field">
+        <label htmlFor="project" className="label">
+          Project
+        </label>
+        <p className="control has-icons-right">
+          <select id="project" name="project" onChange = {handleProjectChange}>
+            <option value="Hibbett Sports">Hibbett Sports</option>
+            <option value="Scotts">Scotts</option>
+            <option value="G6">G6</option>
+          </select>
+        </p>
+      </div>
+
       <hr className="separator" />
 
       <div className="has-text-right">
@@ -281,7 +288,7 @@ export default function AddStaff() {
           type="success"
           disabled={!passwordValid || !usernameAvailable}
           onClick={addNewStaff}
-          label="Create Account"
+          label="Save Changes"
         />
       </div>
     </Box>

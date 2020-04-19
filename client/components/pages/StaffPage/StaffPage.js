@@ -7,6 +7,7 @@ import * as R from 'ramda';
 
 import StaffSection from '_templates/StaffSection';
 import AddStaffSection from '_templates/AddStaffSection';
+import EditStaffSection from '_templates/EditStaffSection';
 
 export default function StaffPage({ location }) {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ export default function StaffPage({ location }) {
             <div className="column">
               <Switch>
                 <Route path="/staff/newstaff" component={AddStaffSection} />
+                <Route path="/staff/editstaff" component={EditStaffSection} />
                 <Route path="*" component={StaffSection} />
               </Switch>
             </div>

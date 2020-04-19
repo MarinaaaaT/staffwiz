@@ -53,6 +53,19 @@ router.post('/addNewStaff', requireStaffingAuth, (req, res) => {
   });
 });
 
+//TODO Update editStaffMember Function
+
+router.put('/editStaffMember', requireStaffingAuth, (req, res) => {
+  req.body.updated_at = Date.now();
+
+  User.findByIdAndUpdate({ _id: req.user._id }, req.body, { new: true }, (err, user) => {
+    if (err) {
+      res.status(400).send({ err, message: 'Error updating user' });
+    }
+    res.status(200).send({ message: 'User successfully updated', user: user.hidePassword() });
+  });
+});
+
 router.get('/', (req, res) => {
 
   User.find({}, (err, users) => {

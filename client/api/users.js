@@ -18,4 +18,11 @@ export const addNewStaff = user =>
     .then(handleSuccess)
     .catch(handleError);
 
+//TODO edit staff not done yet
+export const editStaff = user =>
+  request.put('/api/users/editStaff')
+    .send(user)
+    .then(handleSuccess)
+    .catch(handleError);
+
 export const placeholder = () => {};

@@ -6,34 +6,26 @@ import * as R from 'ramda';
 
 import useKeyPress from '_hooks/useKeyPress';
 import { postCheckUsername } from '_api/users';
-import { validateUsername, validatePassword } from '_utils/validation';
+import { validateUsername } from '_utils/validation';
 import { attemptRegister } from '_thunks/auth';
 import { attemptAddNewStaff } from '_thunks/users';
 
 import Box from '_molecules/Box';
 import Button from '_atoms/Button';
+import { attemptEditUser } from '../../../store/thunks/users';
 
 export default function EditStaff({staffMember}) {
   const dispatch = useDispatch();
 
   const [username, setUsername] = useState(staffMember.username);
   const [usernameMessage, setUsernameMessage] = useState('');
-  const [password, setPassword] = useState();
-  const [passwordMessage, setPasswordMessage] = useState('');
   const [department, setDepartment] = useState(staffMember.department);
   const [level, setLevel] = useState(staffMember.level);
   const [project, setProject] = useState(staffMember.project);
-  const [usernameAvailable, setUsernameAvailable] = useState(false);
-  const [passwordValid, setPasswordValid] = useState(false);
+  const [usernameAvailable, setUsernameAvailable] = useState(true);
   const [first_name, setFirstName] = useState(staffMember.firstName);
   const [last_name, setLastName] = useState(staffMember.lastName);
-
-  const checkPassword = (newUsername, newPassword) => {
-    const { valid, message } = validatePassword(newUsername, newPassword);
-
-    setPasswordValid(valid);
-    setPasswordMessage(message);
-  };
+  const id = staffMember.Id;
 
   const checkUsername = newUsername => {
     const { valid, message } = validateUsername(newUsername);
@@ -48,7 +40,13 @@ export default function EditStaff({staffMember}) {
           setUsernameMessage(res.message);
         })
         .catch(R.identity);
-    } else {
+
+      if (newUsername == staffMember.username){
+        setUsernameAvailable(true);
+        setUsernameMessage("No change");
+      }
+    } 
+    else {
       setUsernameAvailable(valid);
       setUsernameMessage(message);
     }
@@ -56,17 +54,11 @@ export default function EditStaff({staffMember}) {
 
   const updateUsername = newUserName => {
     setUsername(newUserName);
-    checkPassword(newUserName, password);
   };
 
   const handleUsernameChange = e => {
     updateUsername(e.target.value);
     checkUsername(e.target.value);
-  };
-
-  const handlePasswordChange = e => {
-    setPassword(e.target.value);
-    checkPassword(username, e.target.value);
   };
 
   const handleDepartmentChange = e => {
@@ -75,7 +67,7 @@ export default function EditStaff({staffMember}) {
 
   const handleLevelChange = e => {
     setLevel(e.target.value);
-    console.log(userId);
+    console.log(staffMember.Id);
   };
 
   const handleFirstNameChange = e => {
@@ -90,22 +82,22 @@ export default function EditStaff({staffMember}) {
     setProject(e.target.value);
   };
 
-
-  //TODO MAKE THIS EDIT STAFF
-  const addNewStaff = () => {
-    if (usernameAvailable && passwordValid) {
-      const newUser = {
+  const editStaffMember = () => {
+    var updatedUser = {};
+    if (usernameAvailable) {
+      updatedUser = {
+        id,
         username,
-        password,
         department, 
         level,
         last_name,
         first_name,
+        project,
       };
-
-      dispatch(attemptAddNewStaff(newUser))
-        .catch(R.identity);
     }
+
+    dispatch(attemptEditUser(updatedUser))
+      .catch(R.identity);
   };
 
   const usernameIconClasses = classNames({
@@ -126,26 +118,6 @@ export default function EditStaff({staffMember}) {
     help: true,
     'is-success': usernameAvailable,
     'is-danger': username && !usernameAvailable,
-  });
-
-  const passwordIconClasses = classNames({
-    fa: true,
-    'fa-check': passwordValid,
-    'fa-warning': password && !passwordValid,
-    'is-success': passwordValid,
-    'is-danger': password && !passwordValid,
-  });
-
-  const passwordInputClasses = classNames({
-    input: true,
-    'is-success': passwordValid,
-    'is-danger': password && !passwordValid,
-  });
-
-  const passwordHelpClasses = classNames({
-    help: true,
-    'is-success': passwordValid,
-    'is-danger': password && !passwordValid,
   });
 
   return (
@@ -215,30 +187,6 @@ export default function EditStaff({staffMember}) {
       </div>
 
       <div className="field">
-        <label htmlFor="password" className="label">
-          Password
-        </label>
-        <p className="control has-icons-right">
-          <input
-            id="password"
-            className={passwordInputClasses}
-            placeholder="Password"
-            type="password"
-            value={password}
-            onChange={handlePasswordChange}
-          />
-          <span className="icon is-small is-right">
-            <i className={passwordIconClasses} />
-          </span>
-        </p>
-        {password && (
-          <p className={passwordHelpClasses}>
-            {passwordMessage}
-          </p>
-        )}
-      </div>
-
-      <div className="field">
         <label htmlFor="department" className="label">
           Department
         </label>
@@ -286,8 +234,8 @@ export default function EditStaff({staffMember}) {
       <div className="has-text-right">
         <Button
           type="success"
-          disabled={!passwordValid || !usernameAvailable}
-          onClick={addNewStaff}
+          disabled={!usernameAvailable}
+          onClick={editStaffMember}
           label="Save Changes"
         />
       </div>

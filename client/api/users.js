@@ -19,8 +19,8 @@ export const addNewStaff = user =>
     .catch(handleError);
 
 //TODO edit staff not done yet
-export const editStaff = user =>
-  request.put('/api/users/editStaff')
+export const putStaffMember = user =>
+  request.put('/api/users/editStaffMember/' + user.username + '/')
     .send(user)
     .then(handleSuccess)
     .catch(handleError);
